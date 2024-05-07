@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.user.is_superuser %}
+<h1>New post, check is it okey</h1>
+{% for post in posts %}
+<a href="{% url 'check_post_byadmin' post.slug %}">{{post.title}} by {{post.creator}}</a>
+
+<p>{{post.is_published}}</p>
+{% endfor %}
+{% endif %}
+
+
+{% endblock%}

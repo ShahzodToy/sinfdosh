@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load hitcount_tags %}
+
+{% block content %}
+<div class="card mb-4">
+              <div class="card-body">
+                <div class="media mb-3">
+                  <img src="{{post.creator.profile_picture.url}}" class="d-block ui-w-40 rounded-circle" alt="rasmbor">
+                  <div class="media-body ml-3">
+                      <a href="{% url 'profile' post.creator.id  %}">
+                      {{post.creator.username}}
+                          </a>
+                      {% if request.user == post.creator %}
+                      <div class="ms-5">
+                      <a href="{% url 'edit_post' post.id %}" class="btn btn-outline-primary">Edit</a>
+                      <a href="{% url 'delete' post.id %}" class="btn btn-outline-danger">Delete</a>
+                          </div>
+                      {% endif %}
+                    <div class="text-muted small">{{post.creator.date_joined}}</div>
+                  </div>
+                </div>
+
+                <p>
+                  {{post.content}}
+                </p>
+                  <img src="{{post.picture_content.url}}" class="pic_post" alt="rsambor buyerda">
+              </div>
+              <div class="card-footer">
+                <p class="d-inline-block text-muted"><i class="bi bi-eye-fill"></i>{% get_hit_count for post %}</p>
+                  <form action="{% url 'likes' post.id %}" method="post">{% csrf_token %}
+                      <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-secondary">Like-</button>{{total_like}}
+                  </form>
+              </div>
+    <div>
+        <form method="post">{% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success">
+        </form>
+
+    </div>
+
+    <hr>
+    {% for comment in comments %}
+    <div class="ms-3">
+        <img src="{{comment.user.profile_picture.url}}" class="d-block ui-w-40 rounded-circle" alt="rasmbor">
+    <p>{{comment.user.username}}</p>
+    <p>{{comment.comment}}</p>
+    </div>
+    {% endfor %}
+
+</div>
+<hr>
+<h1>Most viewed posts</h1>
+<div class="container text-center">
+  <div class="row">
+
+{% for post in popular_posts %}
+      <div class="col">
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.content|truncatewords:30}}</p>
+  </div>
+</div>
+      </div>
+
+  {% endfor %}
+  </div>
+</div>
+{% endblock%}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load hitcount_tags %}
+{% block content %}
+<div class="container posts-content">
+    <div>
+        <a href="{% url 'home' %}" class="btn btn-primary" type="button" >New posts</a>
+
+        <a href="{% url 'most_viewed_weekly' %}" class="btn btn-primary" type="reset" >Weekly posts</a>
+        <a href="{% url 'most_viewed_mothly' %}" class="btn btn-primary" type="reset" >Monthly posts</a>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            {% for post in posts %}
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="media mb-3">
+                  <img src="{{post.creator.profile_picture.url}}" class="d-block ui-w-40 rounded-circle" alt="rasmbor">
+                  <div class="media-body ml-3">
+                      <a href="{% url 'profile' post.creator.id  %}">
+                      {{post.creator.username}}
+                          </a>
+                      {% if request.user == post.creator %}
+                      <div class="ms-5">
+                      <a href="{% url 'edit_post' post.id %}" class="btn btn-outline-primary">Edit</a>
+                          <form action="{% url 'delete' post.id %}"  method="post">{% csrf_token %}
+                              <input type="submit" value="Delete" class="btn btn-outline-danger">
+                          </form>
+
+                          </div>
+                      {% endif %}
+                    <div class="text-muted small">{{post.creator.date_joined}}</div>
+                  </div>
+                </div>
+
+                <p>
+                    {{post.content|truncatewords:50}}...
+                    <a href="{% url 'detail_view' post.slug %}">
+                        more
+
+                    </a>
+
+                </p>
+                  <img src="{{post.picture_content.url}}" class="pic_post" alt="rsambor buyerda">
+              </div>
+              <div class="card-footer">
+                  <p class="d-inline-block text-muted"><i class="bi bi-eye-fill"></i>{% get_hit_count for post %}</p>
+                    <form action="{% url 'likes' post.id %}" method="post">{% csrf_token %}
+                      <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-secondary">Like-</button>{{total_like}}
+                  </form>
+              </div>
+                <p>#{{post.post_tag}}</p>
+                <p>Topic:{{post.section_topic}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

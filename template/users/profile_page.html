@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <!--#css-->
+
+  	<link rel="stylesheet" href="{% static '/users/profile.css' %}">
+</head>
+<body>
+
+<nav id="navbar">
+    <div class="nav-left">
+        <div id="button1" class="nav-button">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+    </div>
+    <div class="nav-right">
+        <ul id="navbar-items">
+            <li class="navbar-item no-mob"><a class="navbar-item-inner" href=""><span><i class="bi bi-house"></i> Home</span></a></li>
+            <li class="navbar-item no-mob"><a class="navbar-item-inner" href=""><span><i class='uil uil-comment-image'></i> Forum</span></a></li>
+            <li class="navbar-item no-mob"><a class="navbar-item-inner" href=""><span><i class="uil uil-shopping-bag"></i> Store</span></a></li>
+            <li class="navbar-item"><a class="navbar-item-inner" href=""><span><i class='uil uil-user'></i></span></a></li>
+        </ul>
+    </div>
+</nav>
+<div class="back-to-top" style="display: block; opacity: 1;">
+    <a class="semplice-event" href="#" data-event-type="helper" data-event="scrollToTop" style="opacity: 1;">
+        <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="53px" height="20px" viewBox="0 0 53 20" enable-background="new 0 0 53 20" xml:space="preserve">
+            <g id="Ebene_3"></g>
+            <g><polygon points="43.886,16.221 42.697,17.687 26.5,4.731 10.303,17.688 9.114,16.221 26.5,2.312 	"></polygon></g>
+        </svg>
+    </a>
+</div>
+<main>
+    <div class="user-header-wrapper flexbox">
+        <div class="user-header-inner flexbox">
+            <div class="user-header-overlay"></div>
+            <img class="user-header" src="https://i.imgur.com/WS9ODfZ.jpg" alt="">
+        </div>
+    </div>
+    <div class="user-info-bar">
+        <div class="ufo-bar-col1">
+        </div>
+        <div class="ufo-bar-col2">
+            <div class="ufo-bar-col2-inner">
+                <div class="user-icon-wrapper">
+                    <img class="user-icon" src="{{user.profile_picture.url}}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="ufo-bar-col3">
+            <div class="ufo-bar-col3-inner">
+                <div class="username-wrapper-outer">
+                    <div class="username-wrapper">
+                        <h3 class="username-dev">{{user.username}}</h3>
+                    </div>
+                    <div>
+                        <a class="ufo-bar-fff" href=""><span>{{user.friends.count}}</span> Followers</a>
+                        <a class="ufo-bar-fff" href=""><span>{{user.to_user.count}}</span> Following</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ufo-bar-col4">
+            <div class="ufo-bar-col4-inner">
+                <button class="button2 btn-primary2"><i class="uil uil-plus"></i> + Subscribe<div class="btn-secondary2"></div></button>
+            </div>
+        </div>
+        <div class="ufo-bar-col5">
+        </div>
+    </div>
+    <div class="user-info-bar2">
+        <div class="ufo-bar2-col1">
+        </div>
+        <div id="ufo-home" class="ufo-bar2-col2 ufo-bar2-block">
+            <div class="ufo-bar2-col2-inner flexbox">
+                <span><i class="uil uil-trophy"></i></span>
+                <h3>Posts</h3>
+            </div>
+        </div>
+        <div id="ufo-videos" class="ufo-bar2-col3 ufo-bar2-block">
+            <div class="ufo-bar2-col3-inner flexbox">
+                <span><i class="uil uil-star"></i></span>
+                <h3>Followers</h3>
+            </div>
+        </div>
+        <div id="ufo-about" class="ufo-bar2-col6 ufo-bar2-block">
+            <div class="ufo-bar2-col6-inner flexbox">
+                <span><i class="uil uil-user"></i></span>
+                <a href="{% url 'about' user.id %}"><h3>About</h3></a>
+            </div>
+        </div>
+        <div id="ufo-images" class="ufo-bar2-col4 ufo-bar2-block">
+            <div class="ufo-bar2-col4-inner flexbox">
+                <span><i class="uil uil-comment-alt"></i></span>
+                {% if request.user == user %}
+                <a href="{% url 'edit_user' %}"><h3>Edit</h3></a>
+                {% endif  %}
+
+            </div>
+        </div>
+        <div class="ufo-bar2-col7">
+        </div>
+    </div>
+</main>
+
+
+<footer id="footer" class="flexbox-col">
+    <div class="footer-inner flexbox">
+
+        <div class="footer-right">
+            <div class="footer-links">
+                <a class="footer-link fl-first" href="https://www.youtube.com/channel/UCfstx-8p0M5K1KTBUB4ORLQ" target="_blank">YouTube.</a>
+                <a class="footer-link" href="https://twitter.com/xcraftserver" target="_blank">Twitter.</a>
+                <a class="footer-link" href="https://www.instagram.com/xcraftofficial/" target="_blank">Instagram.</a>
+                <a class="footer-link fl-last" href="https://discordapp.com/invite/G7yJ2Ww" target="_blank">Discord.</a>
+            </div>
+            <div class="footer-text">
+                <p>xCraft &copy2020. All rights reserved.</p>
+                <p>Made with ♥ by Areal Alien</p>
+            </div>
+            <div class="footer-sites">
+                <a>Cookie Policy.</a> | <a href="https://www.unsplash.com" target="_blank">Unsplash.</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

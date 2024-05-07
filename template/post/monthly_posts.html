@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load hitcount_tags %}
+
+{% block content %}
+
+<h1>Most viewed weekly posts</h1>
+<hr>
+{% for post in top_month %}
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.content|truncatewords:30}}</p>
+  </div>
+</div>
+  {% endfor %}
+{% endblock %}
